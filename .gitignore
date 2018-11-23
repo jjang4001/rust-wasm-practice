@@ -3,3 +3,5 @@
 Cargo.lock
 /pkg
 .DS_Store
+/bin
+wasm-pack.log
