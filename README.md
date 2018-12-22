@@ -22,3 +22,9 @@ npm link rust-wasm-practice
 ```
 npm run start
 ```
+
+# Testing
+To test, run
+```
+wasm-pack test --chrome --headless
+```
