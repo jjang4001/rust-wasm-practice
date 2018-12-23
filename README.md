@@ -28,3 +28,9 @@ To test, run
 ```
 wasm-pack test --chrome --headless
 ```
+
+# Benchmarks
+Comment out all `#[wasm_bindgen]` and switch to nightly compiler. Then, run
+```
+cargo +nightly bench | tee before.txt
+```
