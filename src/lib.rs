@@ -1,6 +1,7 @@
 extern crate cfg_if;
 extern crate wasm_bindgen;
 
+mod examples;
 mod utils;
 
 use cfg_if::cfg_if;
