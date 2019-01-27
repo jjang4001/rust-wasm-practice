@@ -7,7 +7,9 @@ const div = 'div';
 const commandLineIndicator = '> ';
 
 console.log('Hello from native js console.log');
-BindgenExamples.console_log('from bindgen console.log');
+const bindgenExamples = BindgenExamples.new(1);
+bindgenExamples.print_my_int_value();
+bindgenExamples.console_log('from rust class');
 
 document.addEventListener('keypress', (evt) => {
   const key = evt.which || evt.keyCode;

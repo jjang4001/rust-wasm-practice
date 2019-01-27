@@ -33,7 +33,16 @@ pub struct BindgenExamples {
 
 #[wasm_bindgen]
 impl BindgenExamples {
-    pub fn console_log(txt: String) {
+    pub fn console_log(&self, txt: String) {
         macro_console_log(txt);
+    }
+
+    pub fn print_my_int_value(&self) {
+        macro_console_log(self.int_value.to_string());
+    }
+
+    pub fn new(val: u32) -> BindgenExamples {
+        let int_value = val;
+        BindgenExamples { int_value }
     }
 }
