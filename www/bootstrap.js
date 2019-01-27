@@ -7,3 +7,6 @@ import("./index.js")
 
 import("./game-of-life.js")
   .catch(e => console.error("Error importing `index2.js`:", e));
+
+import("./wasm-bindgen-examples.js")
+  .catch(e => console.error("Error importing `wasm-bindgen-examples`:", e));

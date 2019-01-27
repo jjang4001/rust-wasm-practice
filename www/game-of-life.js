@@ -4,7 +4,6 @@
 import { Universe, Cell } from '../pkg/rust_wasm_practice';
 import { memory } from '../pkg/rust_wasm_practice_bg';
 
-
 const CELL_SIZE = 5; // px
 const GRID_COLOR = "#CCCCCC";
 const DEAD_COLOR = "#FFFFFF";
@@ -71,11 +70,7 @@ const pause = () => {
 };
 
 playPauseButton.addEventListener("click", event => {
-  if (isPaused()) {
-    play();
-  } else {
-    pause();
-  }
+  isPaused() ? play() : pause();
 });
 
 const drawGrid = () => {

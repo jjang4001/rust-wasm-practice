@@ -27,6 +27,19 @@
   overflow: hidden;
 }
 
+.wasm-bindgen-examples {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%; 
+}
+
+.example-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #practice-canvas {
   display: block;
   margin-left: auto;

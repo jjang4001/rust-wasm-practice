@@ -23,6 +23,16 @@ npm link rust-wasm-practice
 npm run start
 ```
 
+# Optimizing file size
+```
+wasm-opt -Os add_bg.wasm -o add.wasm
+```
+And for even smaller sizes when releasing, add
+```
+[profile.release]
+lto = true
+```
+
 # Testing
 To test, run
 ```
