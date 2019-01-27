@@ -23,7 +23,7 @@ jsClassButton.addEventListener('click', evt => {
 });
 
 createHelloElementButton.addEventListener('click', evt => {
-  bindgenExaples.create_hello_dom_element();
+  bindgenExamples.create_hello_dom_element();
 });
 
 wasmFibonacciButton.addEventListener('click', evt => {

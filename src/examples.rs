@@ -7,57 +7,10 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::HtmlElement;
 
-// js -> rust
+mod fib;
 
 fn macro_console_log(txt: String) {
     console_log!("Hello {}!", txt);
-}
-
-fn fibonacci(n: u32) -> u32 {
-    if n == 0 {
-        0
-    } else if n == 1 {
-        1
-    } else {
-        fibonacci(n - 1) + fibonacci(n - 2)
-    }
-}
-
-#[wasm_bindgen]
-extern "C" {
-    // Use `js_namespace` here to bind `console.log(..)` instead of just
-    // `log(..)`
-    #[wasm_bindgen(js_namespace = console)]
-    fn log(s: &str);
-
-    // The `console.log` is quite polymorphic, so we can bind it with multiple
-    // signatures. Note that we need to use `js_name` to ensure we always call
-    // `log` in JS.
-    #[wasm_bindgen(js_namespace = console, js_name = log)]
-    fn log_u32(a: u32);
-
-    // Multiple arguments too!
-    #[wasm_bindgen(js_namespace = console, js_name = log)]
-    fn log_many(a: &str, b: &str);
-
-    fn alert(s: &str);
-}
-
-#[wasm_bindgen(module = "../www/wasm-bindgen-examples")]
-extern "C" {
-    fn name() -> String;
-
-    type MyClass;
-
-    #[wasm_bindgen(constructor)]
-    fn new() -> MyClass;
-
-    #[wasm_bindgen(method, getter)]
-    fn number(this: &MyClass) -> u32;
-    #[wasm_bindgen(method, setter)]
-    fn set_number(this: &MyClass, number: u32) -> MyClass;
-    #[wasm_bindgen(method)]
-    fn render(this: &MyClass) -> String;
 }
 
 // rust -> js
@@ -120,11 +73,11 @@ impl BindgenExamples {
             .expect("performance should be available");
 
         let t0 = performance.now();
-        let res = fibonacci(n);
+        let res = fib::fibonacci(n);
         let t1 = performance.now();
         let duration = t1 - t0;
 
-        display_fibonacci_result(duration, res);
+        fib::display_fibonacci_result(duration, res);
     }
 
     pub fn new(val: u32) -> BindgenExamples {
@@ -133,23 +86,40 @@ impl BindgenExamples {
     }
 }
 
-fn display_fibonacci_result(duration: f64, value: u32) -> Result<(), JsValue> {
-    let window = web_sys::window().expect("global `window` exists");
-    let document = window.document().expect("should have a document on window");
+#[wasm_bindgen]
+extern "C" {
+    // Use `js_namespace` here to bind `console.log(..)` instead of just
+    // `log(..)`
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
 
-    let res_html_element = document.create_element("p")?;
-    res_html_element.set_inner_html(&format!(
-        "WASM duration: {} ms, result: {}",
-        duration, value
-    ));
+    // The `console.log` is quite polymorphic, so we can bind it with multiple
+    // signatures. Note that we need to use `js_name` to ensure we always call
+    // `log` in JS.
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_u32(a: u32);
 
-    document
-        .get_element_by_id("fibonacci-time")
-        .expect("document should have #fibonacci-time on DOM")
-        .dyn_ref::<HtmlElement>()
-        .expect("#fibonacci-time should be an HtmlElement")
-        .append_child(&res_html_element)
-        .expect("duration and value should have been added");
+    // Multiple arguments too!
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_many(a: &str, b: &str);
 
-    Ok(())
+    fn alert(s: &str);
+}
+
+// js -> rust
+#[wasm_bindgen(module = "../www/wasm-bindgen-examples")]
+extern "C" {
+    fn name() -> String;
+
+    type MyClass;
+
+    #[wasm_bindgen(constructor)]
+    fn new() -> MyClass;
+
+    #[wasm_bindgen(method, getter)]
+    fn number(this: &MyClass) -> u32;
+    #[wasm_bindgen(method, setter)]
+    fn set_number(this: &MyClass, number: u32) -> MyClass;
+    #[wasm_bindgen(method)]
+    fn render(this: &MyClass) -> String;
 }
