@@ -40,6 +40,19 @@
   margin-right: auto;
 }
 
+.fibonacci-container {
+  text-align: center;
+}
+
+#fibonacci-input-field {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+#fibonacci-input {
+  display: inline-block;
+}
+
 #practice-canvas {
   display: block;
   margin-left: auto;

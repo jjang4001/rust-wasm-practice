@@ -13,6 +13,16 @@ fn macro_console_log(txt: String) {
     console_log!("Hello {}!", txt);
 }
 
+fn fibonacci(n: u32) -> u32 {
+    if n == 0 {
+        0
+    } else if n == 1 {
+        1
+    } else {
+        fibonacci(n - 1) + fibonacci(n - 2)
+    }
+}
+
 #[wasm_bindgen]
 extern "C" {
     // Use `js_namespace` here to bind `console.log(..)` instead of just
@@ -85,26 +95,61 @@ impl BindgenExamples {
     pub fn create_hello_dom_element(&self) -> Result<(), JsValue> {
         // Use `web_sys`'s global `window` function to get a handle on the global
         // window object.
-        let window = web_sys::window().expect("no global `window` exists");
+        let window = web_sys::window().expect("global `window` exists");
         let document = window.document().expect("should have a document on window");
 
         // Manufacture the element we're gonna append
         let val = document.create_element("p")?;
-        val.set_inner_html("Hello from Rust!");
+        val.set_inner_html("Wasm says hello!");
 
-        let wasm_dom_area = document
+        document
             .get_element_by_id("wasm-area")
             .expect("document should have #wasm-dom on DOM")
             .dyn_ref::<HtmlElement>()
-            .expect("#wasm-dom should be on HtmlElement")
+            .expect("#wasm-dom should be an HtmlElement")
             .append_child(&val)
             .expect("Hello element should have been added");
 
         Ok(())
     }
 
+    pub fn time_fibonacci(&self, n: u32) {
+        let window = web_sys::window().expect("should have a window in this context");
+        let performance = window
+            .performance()
+            .expect("performance should be available");
+
+        let t0 = performance.now();
+        let res = fibonacci(n);
+        let t1 = performance.now();
+        let duration = t1 - t0;
+
+        display_fibonacci_result(duration, res);
+    }
+
     pub fn new(val: u32) -> BindgenExamples {
         let int_value = val;
         BindgenExamples { int_value }
     }
+}
+
+fn display_fibonacci_result(duration: f64, value: u32) -> Result<(), JsValue> {
+    let window = web_sys::window().expect("global `window` exists");
+    let document = window.document().expect("should have a document on window");
+
+    let res_html_element = document.create_element("p")?;
+    res_html_element.set_inner_html(&format!(
+        "WASM duration: {} ms, result: {}",
+        duration, value
+    ));
+
+    document
+        .get_element_by_id("fibonacci-time")
+        .expect("document should have #fibonacci-time on DOM")
+        .dyn_ref::<HtmlElement>()
+        .expect("#fibonacci-time should be an HtmlElement")
+        .append_child(&res_html_element)
+        .expect("duration and value should have been added");
+
+    Ok(())
 }
