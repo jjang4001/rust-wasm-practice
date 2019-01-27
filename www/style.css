@@ -1,0 +1,50 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.console {
+  margin: 20px;
+  padding: 20px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.consoletext {
+  color: rgb(0, 0, 0);
+  font-family: Monaco;
+  word-wrap: break-word;
+  background-color: rgb(190, 197, 209);
+}
+
+.commandLine {
+  border: none;
+  outline: none;
+  background-color: rgb(190, 197, 209);
+  color: rgb(0, 0, 0);
+  font-family: Monaco;
+  width: calc(100% - 20px);
+  overflow: hidden;
+}
+
+#practice-canvas {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+
+#fps {
+  white-space: pre;
+  font-family: monospace;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
+#play-pause {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

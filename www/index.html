@@ -2,33 +2,25 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>rust wasm practice</title>
-  <style>
-    body {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #fps {
-      white-space: pre;
-      font-family: monospace;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Junwon</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="text/javascript" src="./bootstrap.js"></script>
 </head>
 
 <body>
-  <button id="play-pause"></button>
-  <div id="fps"></div>
-  <canvas id="practice-canvas"></canvas>
-  <script src="./bootstrap.js"></script>
+  <div class="background">
+    <h1>Hello World</h1>
+    <div class="console">
+      <div class="consoletext">
+        Hello, welcome to Junwon's cli.
+      </div>
+      <textarea rows="10" class="commandLine">></textarea>
+    </div>
+    <div class="game-of-life-container">
+      <button id="play-pause"></button>
+      <div id="fps"></div>
+      <canvas id="practice-canvas"></canvas>
+    </div>
+  </div>
 </body>
-
-</html>
